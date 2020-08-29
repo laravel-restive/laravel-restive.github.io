@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/10_controller_definition/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/10_installation/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/10_queryparser_where/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/20_routes/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/20_queryparser_softdeletes/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/30_api_endpoints/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/30_queryparser_columns/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/40_authorization/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/40_queryparser_sort/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/40_validation/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/20_api_controllers/50_pagination/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/50_queryparser_joins/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/50_testing/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/60_contributing/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/60_queryparser_scopes/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/70_acknowledgements/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/30_query_parsers/70_queryparser_withs/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/80_license/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/90_todo/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/</loc>
+  </url>
+  
+  <url>
+    <loc>laravel-restive.github.io/tags/</loc>
+  </url>
+  
+</urlset>
