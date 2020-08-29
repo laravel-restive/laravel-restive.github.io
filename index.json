@@ -1,167 +1,167 @@
 [
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/10_controller_definition/",
+	"uri": "/20_api_controllers/10_controller_definition/",
 	"title": "Controller Definition",
 	"tags": [],
 	"description": "",
 	"content": "For each Laravel model you want to provide API access to you will need to create a Controller.\nThis should be placed in the standard Laravel location e.g. App/Http/Controllers or a sub directory. Our suggestion is to use App/Http/Controllers/Api\nThe controller definition is fairly simple\n\u0026lt;?php namespace App\\Http\\Controllers\\Api; use Restive\\Controllers\\ApiController; class DummySimpleController extends ApiController { protected $modelName = '\\\\Restive\\\\Models\\\\DummySimple'; }  The protected $modelName defines the Eloquent Model that will be used by the controller. The factory class used will try and resolve the model from either your projects App folder or from the App/Models folder, If the Model is in one of these folders there is no need to namespace the model name. e.g. you could just do\n protected $modelName = 'ModelName';   "
 },
 {
-	"uri": "laravel-restive.github.io/10_installation/",
+	"uri": "/10_installation/",
 	"title": "Installation",
 	"tags": [],
 	"description": "",
 	"content": "Installation is via composer.\ncomposer require laravel-restive/restive\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/10_queryparser_where/",
+	"uri": "/30_query_parsers/10_queryparser_where/",
 	"title": "Where Filters",
 	"tags": [],
 	"description": "",
 	"content": "Simple Where Clauses Simple where clauses take the format of\nwhere[]=fieldname:operator:value  for example\n?where[]=id:eq:1  would equate to an eloquent query of\nmodel::where('id', '=', 1)  The operators allowed are\n eq equates to = noteq equates to != lte equates to \u0026lt;= gte equates to \u0026gt;= gt equates to \u0026gt; lt equates to \u0026lt; lk equates to LIKE nlk equates to NOT LIKE  Can also use orWhere\norWhere[]=id:eq:1  Where In clauses Where In clauses take the form of\nwhereIn[]=fieldname:(comma separate list)  For example\nwhereIn[]=id:(1,2,3)  Can also use\n orWhereIn whereNotIn orWhereNotIn  Where Between Clauses Where Between clauses take the form of\nwhereBetween[]=fieldname:start:end  For example\nwhereBetween[]=age:18:45  Can also use\n orWhereBetween whereNotBetween orWhereNotBetween  "
 },
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/",
+	"uri": "/20_api_controllers/",
 	"title": "API Controllers",
 	"tags": [],
 	"description": "",
 	"content": "Restive provides an ApiController class that your controllers must extend to provide api access to your models.\nRoutes must be defined for each model you want to access, using the Restive::resource method.\nThe routes and the controller will allow access to various api endpoints, which act like standard Laravel resource routes, with the addition of filtering/sorting query parameters.\nThe controller also provides validation on create/update methods and pagination for the index method.\n"
 },
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/20_routes/",
+	"uri": "/20_api_controllers/20_routes/",
 	"title": "Routes",
 	"tags": [],
 	"description": "",
 	"content": "Restive uses resource controllers for API routes. To define your routes for each controller you will need to add the following to your api routes file.\nRestive::resource('modelName', 'controller');  modelName is the model name you want to have api access.\nController is the name of your controller class.\nAs an example. To use the dummy simple controller supplied by the project, your routing entries would be.\nRestive::resource('dummySimple', 'Api\\DummySimpleController');  or to use the default User model that comes with Laravel\nRestive::resource('user', 'Api\\UserController');  "
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/20_queryparser_softdeletes/",
+	"uri": "/30_query_parsers/20_queryparser_softdeletes/",
 	"title": "Soft Deletes",
 	"tags": [],
 	"description": "",
 	"content": "For models that support soft deletes, the query parser also provides 2 further filters.\nWith Trashed To show all entries for the model, even when soft deleted use\nwithTrashed  Only Trashed To show only entries for the model that have been soft deleted use\nonlyTrashed  Using withTrashed or onlyTrashed on models that do not support soft deletes will result in an exception, with the error message being returned in the Json response. {\u0026quot;error\u0026quot;:{\u0026quot;message\u0026quot;:\u0026quot;Model does not support soft deletes\u0026quot;,\u0026quot;status_code\u0026quot;:400}}\n There is currently no way to force delete soft deleted items. This is on the todo list.\n "
 },
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/30_api_endpoints/",
+	"uri": "/20_api_controllers/30_api_endpoints/",
 	"title": "API Endpoints",
 	"tags": [],
 	"description": "",
 	"content": "The api endpoints provided by the resource controller and extra controller methods provide the following route/actions\nGET api/modelname -\u0026gt; controller@index\nAllows for query filtering on the url\nGET api/modelname/{id} -\u0026gt; controller@show\nPOST api/modelname -\u0026gt; controller@store\nThe request body should be an array of field/values e.g\n['name' =\u0026gt; 'foo', 'email' =\u0026gt; 'bar@test.com']\nPUT api/modelname/{id} -\u0026gt; controller@update\nThe request body should be an array of field/values\ne.g\n['name' =\u0026gt; 'foo', 'email' =\u0026gt; 'bar@test.com']\nUpdates can use filtering e.g.\nPUT api/modelname -\u0026gt; controller@update\nwhile including something like\n['@parser' =\u0026gt; ['whereBetween' =\u0026gt; ['age:21:65']]\nDELETE api/modelname/{id} - controller@destroy\nDeletes can use filtering e.g.\nDELETE api/modelname -\u0026gt; controller@destroy\nincluding something like\n['@parser' =\u0026gt; ['whereBetween' =\u0026gt; ['age:21:65']]\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/",
+	"uri": "/30_query_parsers/",
 	"title": "Query Parsers",
 	"tags": [],
 	"description": "",
 	"content": "The query parser allows for complex filtering, sorting, the use of child relations and more.\nCurrently the filter parser supports\n columns with where orWhere whereIn orWhereIn whereNotIn orWhereNotIn whereBetween whereNotBetween orWhereBetween orWhereNotBetween withTrashed onlyTrashed scope sort join  sort allows for multiple sort targets for ascending and descending sorts.\nwith allow for loading child models.\nscope allows for the use of Laravel query scopes\nJoins are also supported\nQuery results by default return all columns for the query, however you can use the columns filter to restrict which columns are returned.\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/30_queryparser_columns/",
+	"uri": "/30_query_parsers/30_queryparser_columns/",
 	"title": "Select Columns",
 	"tags": [],
 	"description": "",
 	"content": "example\ncolumns[]=id,name  will restrict the returned columns to just id and name.\n"
 },
 {
-	"uri": "laravel-restive.github.io/40_authorization/",
+	"uri": "/40_authorization/",
 	"title": "Authorization",
 	"tags": [],
 	"description": "",
 	"content": " There will be some more documentation here regarding Authorization soon.\n This project/code is agnostic as to how you provide authorization for your API.\nIt\u0026rsquo;s expected that you may need to extend the Api Controller to provide authorization and/or role/scope based access.\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/40_queryparser_sort/",
+	"uri": "/30_query_parsers/40_queryparser_sort/",
 	"title": "Sort Ordering",
 	"tags": [],
 	"description": "",
 	"content": "example\nsort[]=id,-name  would sort ascending on id then sort descending on name\n"
 },
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/40_validation/",
+	"uri": "/20_api_controllers/40_validation/",
 	"title": "Validation",
 	"tags": [],
 	"description": "",
 	"content": "The base ApiController class that your controller extends contains calls to Laravel\u0026rsquo;s Validation system.\nTo use validation on your api request you must create a public rules method on the model your controller accesses.\ne.g.\npublic function rules($id = 0) { return [ 'email' =\u0026gt; 'required|unique:zcwilt_users'.($id ? \u0026quot;,email,$id\u0026quot; : ''), 'name' =\u0026gt; 'required' ]; }  For update methods, the primary key value is passed as the $id parameter.\n The controller uses $request-\u0026gt;all() to pass request fields to the model update/create methods. This could allow malicious users to update database fields that you did not want. You must therefore be very explicit in your models as to which fields can be used in this way. e.g. using the $fillable property.\n "
 },
 {
-	"uri": "laravel-restive.github.io/20_api_controllers/50_pagination/",
+	"uri": "/20_api_controllers/50_pagination/",
 	"title": "Pagination",
 	"tags": [],
 	"description": "",
 	"content": "All results from the index route are paginated using the standard Laravel paginator.\nTherefore, you can add a page and per_page parameter to those queries.\nYou can also return all results by adding paginate=no to the query string.\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/50_queryparser_joins/",
+	"uri": "/30_query_parsers/50_queryparser_joins/",
 	"title": "Query Joins",
 	"tags": [],
 	"description": "",
 	"content": "Example\njoin[]=joinType:tableName:leftKey:rightKey  The join clause takes 4 parameters\n joinType - can be 1 of inner, left or cross tableName - the table to join on leftkey - the table field used on the left side of the Join on clause rightKey - the table field used on the right side of the Join on clause  More examples\njoin[]=inner:posts:posts.user_id:users.id  is the same as\n$model-\u0026gt;join('posts', 'posts.user_id', '=', 'users.id', 'inner');  "
 },
 {
-	"uri": "laravel-restive.github.io/50_testing/",
+	"uri": "/50_testing/",
 	"title": "Testing",
 	"tags": [],
 	"description": "",
 	"content": "Tests can be run within the package\nvendor/bin/phpunit\nor\ncomposer tests\nThere is also a phpunit xml file for running tests with code coverage\nvendor/bin/phpunit -c phpunit-cc.xml\nor\ncomposer coverage\nTo run the code coverage tests, you will need to install xdebug\n "
 },
 {
-	"uri": "laravel-restive.github.io/60_contributing/",
+	"uri": "/60_contributing/",
 	"title": "Contributing",
 	"tags": [],
 	"description": "",
 	"content": "See the - Contributing File\n"
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/60_queryparser_scopes/",
+	"uri": "/30_query_parsers/60_queryparser_scopes/",
 	"title": "Query Scopes",
 	"tags": [],
 	"description": "",
 	"content": " This feature is a bit experimental at the moment.\n example\nscope[]=myscope  Allows the use of Laravel scopes\nthe scope parameter should be the name of your scope less the preceding scope\ne.g. If your scope is called scopeActive then you would just use active\n"
 },
 {
-	"uri": "laravel-restive.github.io/70_acknowledgements/",
+	"uri": "/70_acknowledgements/",
 	"title": "Acknowledgments",
 	"tags": [],
 	"description": "",
 	"content": "This project would not exist without the work of others.\nThanks go to\n Laravel Framework  From our composer.json\n orchestra/testbench phpuni codedungeon/phpunit-result-printer nunomaduro/collisio  The following projects also provided inspiration.\n spatie/laravel-query-builder esbenp/bruno dingo/api Froiden/laravel-rest-api  Thanks also to the guys from Reddit who provided feedback\n /u/tusconflyer u/somethingeneric  "
 },
 {
-	"uri": "laravel-restive.github.io/30_query_parsers/70_queryparser_withs/",
+	"uri": "/30_query_parsers/70_queryparser_withs/",
 	"title": "Relationships",
 	"tags": [],
 	"description": "",
 	"content": " This feature is a bit experimental at the moment. In terms of testing i\u0026rsquo;ve only tried with a simple one to many relationship. e.g. user-\u0026gt;posts.\n example\nwith[]=posts  The above assumes the query is being done on a model that has a relationship defined, and uses the Laravel Querybuilder with method.\n"
 },
 {
-	"uri": "laravel-restive.github.io/80_license/",
+	"uri": "/80_license/",
 	"title": "License",
 	"tags": [],
 	"description": "",
 	"content": "This code is released under the MIT license.\nSee the License File\n"
 },
 {
-	"uri": "laravel-restive.github.io/90_todo/",
+	"uri": "/90_todo/",
 	"title": "Todo",
 	"tags": [],
 	"description": "",
 	"content": "  Allow for force deleting entries\n  Document Exception Handling\n  Update demo site with auth examples\n  "
 },
 {
-	"uri": "laravel-restive.github.io/categories/",
+	"uri": "/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "laravel-restive.github.io/",
+	"uri": "/",
 	"title": "Laravel Restive",
 	"tags": [],
 	"description": "",
 	"content": "Laravel Restive Restive is written for Laravel and provides a query parser and api controllers for CRUD type actions.\nThe query parser allows for complex filtering and sorting, converting the URI query into eloquent queries.\nThe API controller supports resource creation, reading, updating and deletion.\nReading, updating and deletion can all access the query parser.\ne.g.\n whereIn whereBetween sort  although note that the filtering can be more complex than just a simple where\n"
 },
 {
-	"uri": "laravel-restive.github.io/tags/",
+	"uri": "/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",
