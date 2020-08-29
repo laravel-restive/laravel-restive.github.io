@@ -3,6 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/30_query_parsers/5_queryparser_formats/</loc>
+  </url>
+  
+  <url>
     <loc>/20_api_controllers/10_controller_definition/</loc>
   </url>
   

@@ -1,5 +1,12 @@
 [
 {
+	"uri": "/30_query_parsers/5_queryparser_formats/",
+	"title": "Query Formatting",
+	"tags": [],
+	"description": "",
+	"content": "GET routes For controller index routes, e.g. GET /resource query parameters are appended to the url.\nexamples given a route such as\nRestive::resource('user', 'userController')  and a base url of\ndomain.com/user  query parameters can be added such as :-\ndomain.com/user?where[]=status:eq:1\u0026amp;whereBetween[]=age:20:30\u0026amp;withTrashed$sort[]=-age\u0026amp;perPage=20  PUT/DELETE routes PUT (update) and DELETE routes don;t allow for query parameters in the url. In these cases we need to add the Restive query parameters into the body of the request.\nWe also need to ensure that those query parameters don;t clash with any model fields we maight be passing in the request (for model updates).\nIn these cases we can add a @parser field to the request body.\nAgain, given the route\nRestive::resource('user', 'userController')  and using http test code to show the request.\n $response = $this-\u0026gt;delete(\u0026quot;/user\u0026quot;, ['@parser' =\u0026gt; ['where' =\u0026gt; ['id:eq:2']]]); $response = $this-\u0026gt;put(\u0026quot;/user\u0026quot;, [ 'email' =\u0026gt; 'dirk@holisticdetective.com', 'name' =\u0026gt; 'Dirk Gently', 'age' =\u0026gt; 45, '@parser' =\u0026gt; ['where' =\u0026gt; ['email:eq:dirk@holisticdetective.com']] ]);  "
+},
+{
 	"uri": "/20_api_controllers/10_controller_definition/",
 	"title": "Controller Definition",
 	"tags": [],

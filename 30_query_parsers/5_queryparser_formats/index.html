@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Pagination :: Documentation for Laravel Restive</title>
+    <title>Query Formatting :: Documentation for Laravel Restive</title>
 
     
     <link href="/css/nucleus.css?1598733871" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/20_api_controllers/50_pagination/">
+  <body class="" data-url="/30_query_parsers/5_queryparser_formats/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -105,7 +105,7 @@
   
     
     <li data-nav-id="/20_api_controllers/" title="API Controllers" class="dd-item 
-        parent
+        
         
         
         ">
@@ -248,8 +248,8 @@
   
     
     <li data-nav-id="/20_api_controllers/50_pagination/" title="Pagination" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/20_api_controllers/50_pagination/">
@@ -283,7 +283,7 @@
   
     
     <li data-nav-id="/30_query_parsers/" title="Query Parsers" class="dd-item 
-        
+        parent
         
         
         ">
@@ -314,8 +314,8 @@
   
     
     <li data-nav-id="/30_query_parsers/5_queryparser_formats/" title="Query Formatting" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/30_query_parsers/5_queryparser_formats/">
@@ -750,7 +750,7 @@
                   
                   
                   <div id="top-github-link">
-                    <a class="github-link" title='Edit this page' href="https://github.com/laravel-restive/restive-docs/tree/master/content/20_api_controllers/50_pagination/_index.md" target="blank">
+                    <a class="github-link" title='Edit this page' href="https://github.com/laravel-restive/restive-docs/tree/master/content/30_query_parsers/5_queryparser_formats/_index.md" target="blank">
                       <i class="fas fa-code-branch"></i>
                       <span id="top-github-link-text">Edit this page</span>
                     </a>
@@ -781,7 +781,7 @@
             
           
           
-            <a href='/'>Laravel Restive</a> > <a href='/20_api_controllers/'>API Controllers</a> > Pagination
+            <a href='/'>Laravel Restive</a> > <a href='/30_query_parsers/'>Query Parsers</a> > Query Formatting
           
         
           
@@ -794,7 +794,16 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#get-routes">GET routes</a>
+      <ul>
+        <li><a href="#examples">examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#putdelete-routes">PUT/DELETE routes</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -810,7 +819,7 @@
           
             <h1>
               
-              Pagination
+              Query Formatting
             </h1>
           
 
@@ -818,9 +827,37 @@
 
 
 
-	<p>All results from the <strong>index</strong> route are paginated using the standard Laravel paginator.</p>
-<p>Therefore, you can add a <strong>page</strong> and <strong>per_page</strong> parameter to those queries.</p>
-<p>You can also return all results by adding <strong>paginate=no</strong> to the query string.</p>
+	<h2 id="get-routes">GET routes</h2>
+<p>For controller index routes, e.g. GET /resource query parameters are appended to the url.</p>
+<h3 id="examples">examples</h3>
+<p>given a route such as</p>
+<pre><code>Restive::resource('user', 'userController')
+</code></pre>
+<p>and a base url of</p>
+<pre><code>domain.com/user
+</code></pre>
+<p>query parameters can be added such as :-</p>
+<pre><code>domain.com/user?where[]=status:eq:1&amp;whereBetween[]=age:20:30&amp;withTrashed$sort[]=-age&amp;perPage=20
+</code></pre>
+<h2 id="putdelete-routes">PUT/DELETE routes</h2>
+<p>PUT (update) and DELETE routes don;t allow for query parameters in the url. In these cases we need to
+add the Restive query parameters into the body of the request.</p>
+<p>We also need to ensure that those query parameters don;t clash with any model fields we maight be passing
+in the request (for model updates).</p>
+<p>In these cases we can add a <strong>@parser</strong> field to the request body.</p>
+<p>Again, given the route</p>
+<pre><code>Restive::resource('user', 'userController')
+</code></pre>
+<p>and using http test code to show the request.</p>
+<pre><code>    $response = $this-&gt;delete(&quot;/user&quot;, ['@parser' =&gt; ['where' =&gt; ['id:eq:2']]]);
+
+    $response = $this-&gt;put(&quot;/user&quot;, [
+        'email' =&gt; 'dirk@holisticdetective.com',
+        'name' =&gt; 'Dirk Gently',
+        'age' =&gt; 45,
+        '@parser' =&gt; ['where' =&gt; ['email:eq:dirk@holisticdetective.com']]
+    ]);
+</code></pre>
 
 
 
@@ -880,7 +917,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -896,8 +932,21 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -958,6 +1007,25 @@
             
         
                     
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
                         
             
             
@@ -975,9 +1043,6 @@
             
         
                     
-            
-        
-                    
                         
             
             
@@ -985,37 +1050,6 @@
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1232,10 +1266,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/20_api_controllers/40_validation/" title="Validation"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/30_query_parsers/" title="Query Parsers"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/30_query_parsers/" title="Query Parsers" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/30_query_parsers/10_queryparser_where/" title="Where Filters" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
