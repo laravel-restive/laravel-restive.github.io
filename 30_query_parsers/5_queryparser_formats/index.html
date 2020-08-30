@@ -12,19 +12,19 @@
     <title>Query Formatting :: Documentation for Laravel Restive</title>
 
     
-    <link href="/css/nucleus.css?1598733871" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1598733871" rel="stylesheet">
-    <link href="/css/hybrid.css?1598733871" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1598733871" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1598733871" rel="stylesheet">
-    <link href="/css/auto-complete.css?1598733871" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1598733871" rel="stylesheet">
-    <link href="/css/theme.css?1598733871" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1598733871" rel="stylesheet">
+    <link href="/css/nucleus.css?1598809978" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1598809978" rel="stylesheet">
+    <link href="/css/hybrid.css?1598809978" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1598809978" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1598809978" rel="stylesheet">
+    <link href="/css/auto-complete.css?1598809978" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1598809978" rel="stylesheet">
+    <link href="/css/theme.css?1598809978" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1598809978" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1598733871"></script>
+    <script src="/js/jquery-3.3.1.min.js?1598809978"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -53,14 +53,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1598733871"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1598733871"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1598809978"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1598809978"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1598733871"></script>
+<script type="text/javascript" src="/js/search.js?1598809978"></script>
 
     
   </div>
@@ -796,7 +796,7 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#get-routes">GET routes</a>
+    <li>
       <ul>
         <li><a href="#examples">examples</a></li>
       </ul>
@@ -827,9 +827,7 @@
 
 
 
-	<h2 id="get-routes">GET routes</h2>
-<p>For controller index routes, e.g. GET /resource query parameters are appended to the url.</p>
-<h3 id="examples">examples</h3>
+	<h3 id="examples">examples</h3>
 <p>given a route such as</p>
 <pre><code>Restive::resource('user', 'userController')
 </code></pre>
@@ -840,22 +838,18 @@
 <pre><code>domain.com/user?where[]=status:eq:1&amp;whereBetween[]=age:20:30&amp;withTrashed$sort[]=-age&amp;perPage=20
 </code></pre>
 <h2 id="putdelete-routes">PUT/DELETE routes</h2>
-<p>PUT (update) and DELETE routes don;t allow for query parameters in the url. In these cases we need to
-add the Restive query parameters into the body of the request.</p>
-<p>We also need to ensure that those query parameters don;t clash with any model fields we maight be passing
-in the request (for model updates).</p>
-<p>In these cases we can add a <strong>@parser</strong> field to the request body.</p>
+<p>PUT (update) and DELETE routes can add query parameters to the URL just like GET routes above,
+although some options may not be meaningful in these contexts.</p>
 <p>Again, given the route</p>
 <pre><code>Restive::resource('user', 'userController')
 </code></pre>
 <p>and using http test code to show the request.</p>
-<pre><code>    $response = $this-&gt;delete(&quot;/user&quot;, ['@parser' =&gt; ['where' =&gt; ['id:eq:2']]]);
+<pre><code>    $response = $this-&gt;delete(&quot;/user?where[]=id:eq:2&quot;);
 
-    $response = $this-&gt;put(&quot;/user&quot;, [
+    $response = $this-&gt;put(&quot;/user?where[]=email:eq:dirk@holisticdetective.com&quot;, [
         'email' =&gt; 'dirk@holisticdetective.com',
         'name' =&gt; 'Dirk Gently',
         'age' =&gt; 45,
-        '@parser' =&gt; ['where' =&gt; ['email:eq:dirk@holisticdetective.com']]
     ]);
 </code></pre>
 
@@ -1279,19 +1273,19 @@ in the request (for model updates).</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1598733871"></script>
-    <script src="/js/perfect-scrollbar.min.js?1598733871"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1598733871"></script>
-    <script src="/js/jquery.sticky.js?1598733871"></script>
-    <script src="/js/featherlight.min.js?1598733871"></script>
-    <script src="/js/highlight.pack.js?1598733871"></script>
+    <script src="/js/clipboard.min.js?1598809978"></script>
+    <script src="/js/perfect-scrollbar.min.js?1598809978"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1598809978"></script>
+    <script src="/js/jquery.sticky.js?1598809978"></script>
+    <script src="/js/featherlight.min.js?1598809978"></script>
+    <script src="/js/highlight.pack.js?1598809978"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1598733871"></script>
-    <script src="/js/learn.js?1598733871"></script>
-    <script src="/js/hugo-learn.js?1598733871"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1598809978"></script>
+    <script src="/js/learn.js?1598809978"></script>
+    <script src="/js/hugo-learn.js?1598809978"></script>
 
-    <link href="/mermaid/mermaid.css?1598733871" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1598733871"></script>
+    <link href="/mermaid/mermaid.css?1598809978" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1598809978"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
